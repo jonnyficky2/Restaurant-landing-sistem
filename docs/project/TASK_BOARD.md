@@ -5,10 +5,10 @@ Task dikelompokkan berdasarkan **Milestone**. Seluruh pekerjaan mengacu pada [Pr
 
 ---
 
-## 📊 Overall Progress: 14% (2/14 Tasks Completed)
+## 📊 Overall Progress: 21% (3/14 Tasks Completed)
 
 - **M1 - Critical Bug Fixes & Reservation Flow:** 2/2 (DONE)
-- **M2 - Accessibility & Semantic Structure:** 0/2
+- **M2 - Accessibility & Semantic Structure:** 1/2
 - **M3 - Performance & UX Optimization:** 0/4
 - **M4 - SEO & Design Consistency:** 0/3
 - **M5 - Architecture & Multi-Client Engine:** 0/2
@@ -57,15 +57,15 @@ Task dikelompokkan berdasarkan **Milestone**. Seluruh pekerjaan mengacu pada [Pr
 ### [TASK-201] Heading Level Hierarchy Alignment
 - **Description:** Perbaiki struktur heading pada `SectionTitle` agar subtitle/eyebrow tidak merusak dokumen outline screen reader.
 - **Priority:** Medium
-- **Status:** READY
+- **Status:** TESTING
 - **Dependencies:** None
 - **Acceptance Criteria:**
   1. Eyebrow/subtitle diubah dari tag `<h3>` menjadi semantik `<p>` atau `<span>` dengan styling yang tetap identik.
   2. Judul section utama tetap menggunakan tag `<h2>` yang valid.
   3. Dokumen outline logis: `<h1>` (Hero) ➔ `<h2>` (Sections).
-- **Progress:** 0%
+- **Progress:** 100%
 - **Related Docs:** [AUDIT_REPORT.md](../AUDIT_REPORT.md) (Finding #5)
-- **Notes:** Komponen target: `src/components/SectionTitle.tsx`.
+- **Notes:** `SectionTitle.tsx` sekarang merender subtitle sebagai `<p>` dengan class visual yang sama. Build/lint perlu diverifikasi; manual UAT responsive masih menunggu validasi pengguna.
 
 ### [TASK-202] Accessible Interactive Elements & Lightbox Modal Trap
 - **Description:** Ubah seluruh elemen interaktif ber-klik menjadi tombol semantik atau tambahkan peran keyboard (`tabIndex`, `role="button"`, ARIA dialog, scroll lock).
