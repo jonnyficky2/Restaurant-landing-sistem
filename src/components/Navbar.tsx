@@ -8,6 +8,15 @@ const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : previousOverflow;
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);

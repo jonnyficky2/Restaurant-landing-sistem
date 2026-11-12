@@ -72,16 +72,18 @@ const Hero: React.FC = () => {
       </Container>
 
       {/* Animated Scroll Down Indicator */}
-      <div 
+      <button
+        type="button"
         onClick={() => {
           const el = document.getElementById('about');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center cursor-pointer text-zinc-400 hover:text-gold-500 transition-colors duration-300"
+        aria-label="Scroll to discover more about The Gilded Spoon"
       >
         <span className="text-[9px] tracking-widest uppercase font-semibold mb-2">Scroll to discover</span>
         <ChevronDown className="h-5 w-5 animate-bounce text-gold-500" />
-      </div>
+      </button>
     </section>
   );
 };

@@ -70,15 +70,15 @@ Task dikelompokkan berdasarkan **Milestone**. Seluruh pekerjaan mengacu pada [Pr
 ### [TASK-202] Accessible Interactive Elements & Lightbox Modal Trap
 - **Description:** Ubah seluruh elemen interaktif ber-klik menjadi tombol semantik atau tambahkan peran keyboard (`tabIndex`, `role="button"`, ARIA dialog, scroll lock).
 - **Priority:** Medium
-- **Status:** READY
+- **Status:** TESTING
 - **Dependencies:** None
 - **Acceptance Criteria:**
   1. Kartu gallery di `Gallery.tsx` dan indikator scroll di `Hero.tsx` dapat diakses dan diaktifkan via keyboard (Tab, Enter, Space).
   2. Lightbox modal memiliki atribut `role="dialog"`, `aria-modal="true"`.
   3. Saat lightbox atau mobile menu terbuka, scroll pada background (`body`) terkunci (`overflow: hidden`).
-- **Progress:** 0%
+- **Progress:** 100%
 - **Related Docs:** [AUDIT_REPORT.md](../AUDIT_REPORT.md) (Finding #4)
-- **Notes:** Komponen target: `src/sections/Gallery.tsx`, `src/sections/Hero.tsx`, `src/components/Navbar.tsx`.
+- **Notes:** Gallery cards dan indikator scroll Hero menjadi tombol keyboard-accessible. Lightbox memiliki `role="dialog"`, `aria-modal`, autofocus close button, Escape handling, dan scroll lock. Mobile menu juga mengunci scroll body. Build/lint perlu diverifikasi; manual UAT masih menunggu validasi pengguna.
 
 ---
 

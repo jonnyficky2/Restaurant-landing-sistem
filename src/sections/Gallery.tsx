@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Container from '../components/Container';
 import SectionTitle from '../components/SectionTitle';
 import { Maximize2, X } from 'lucide-react';
@@ -32,17 +32,27 @@ const galleryItems = [
 
 const Gallery: React.FC = () => {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle ESC key to close lightbox
   useEffect(() => {
+    if (!lightboxImage) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setLightboxImage(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightboxImage]);
 
   return (
     <section id="gallery" className="py-24 bg-zinc-900 border-t border-b border-zinc-950 relative">
@@ -52,10 +62,12 @@ const Gallery: React.FC = () => {
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
           {galleryItems.map((item, index) => (
-            <div 
-              key={index} 
+            <button
+              type="button"
+              key={index}
               onClick={() => setLightboxImage(item.url)}
-              className="relative group aspect-4/3 overflow-hidden rounded-xl cursor-pointer border border-zinc-800 shadow-lg"
+              className="relative group aspect-4/3 overflow-hidden rounded-xl cursor-pointer border border-zinc-800 shadow-lg text-left"
+              aria-label={`Expand ${item.title}`}
             >
               {/* Image */}
               <img 
@@ -76,19 +88,23 @@ const Gallery: React.FC = () => {
                   Click to Expand
                 </p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </Container>
 
       {/* Lightbox Modal */}
       {lightboxImage && (
-        <div 
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded gallery image"
           className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/95 backdrop-blur-sm p-4 animate-fade-in-up"
           onClick={() => setLightboxImage(null)}
         >
           {/* Close Button */}
-          <button 
+          <button
+            ref={closeButtonRef}
             onClick={() => setLightboxImage(null)}
             className="absolute top-6 right-6 text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-800 p-2 rounded-full cursor-pointer hover:rotate-90 duration-300 transition-transform"
             aria-label="Close Modal"
